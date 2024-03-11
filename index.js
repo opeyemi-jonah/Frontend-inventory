@@ -1,4 +1,6 @@
 let productsData = [];
+let quantity = 0;
+var cartItemNumber = 0;
 
 //Customer needs to add items to cart.
 
@@ -120,18 +122,54 @@ function displayData() {
     // Create and append elements for each item in the data array
     productsData.forEach(function(item) {
         var listItem = document.createElement("div");
-        listItem.classList.add("card","m-2");
+        listItem.classList.add("card","m-2","p-2");
         // listItem.textContent = item.Name;
-        listItem.innerHTML = `<img src="${item.image_url || 'https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png'}" class="card-img-top" alt="cat-png" height="150" width="200">
+        listItem.innerHTML = `
+        <img src="${item.image_url || 'https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png'}" class="card-img-top" alt="cat-png" height="150" width="200">
         <div class="card-item-body">
           <h5 class="card-title">${item.Name}</h5>
           <p class="card-text">${item.description || 'No description available'}</p>
           <p>${item.selling_price || '0.00'}</p>
-          <a href="#" class="btn btn-primary">Add to cart</a>
+          <p>${item.quantity} available</p>
+          <div class="d-flex flex-column align-items-start mb-3"> 
+          <a href="#" class="btn btn-primary mb-4">Add to cart</a>
+            <div class="input-group" style="width:50%">
+                <span class="input-group-btn">
+                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="0" min="1" max="${item.quantity}">
+                <span class="input-group-btn">
+                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+          </div>
         </div>`
         container.appendChild(listItem);
     });
 }
 
+
+
 // Call the displayData function when the page loads
 window.onload = displayData;
+
+function increaseQuantity() {
+
+}
+
+$(document).ready(function(){
+    
+    $('.quantity-right-plus').click(function(e){ 
+        quantity++
+        e.preventDefault();
+        
+        $('#quantity').val(quantity)
+        console.log(quantity)
+
+    });
+  
+  });
