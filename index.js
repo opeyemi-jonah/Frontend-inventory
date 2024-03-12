@@ -4,30 +4,33 @@ var cartItemNumber = 0;
 
 //Customer needs to add items to cart.
 
-function populateSection(products) {
-    const section = document.getElementById('productionSection');
+// function populateSection(products) {
+//     const section = document.getElementById('productionSection');
 
-    products.forEach(
-        product => {
-            const productItem = document.createElement('div');
-            productItem.classList.add('card','m-2','p-2');
+//     products.forEach(
+//         product => {
+//             let i = 0;
+//             i++;
+//             const productItem = document.createElement('div');
+//             productItem.classList.add('card','m-2','p-2');
+//             productItem.id.add('${i}');
            
-            productItem.innerHTML = `
+//             productItem.innerHTML = `
 
-            <img src="${product.image_url || 'https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png'}" class="card-img-top" alt="cat-png" height="150" width="200">
-            <div class="card-body">
-              <h5 class="card-title">${product.Name}</h5>
-              <p class="card-text">${product.description || 'No description available'}</p>
-              <p>$${product.selling_price || '0.00'}</p>
-              <a href="#" class="btn btn-primary">Add to cart</a>
-            </div>
-            `;
-        }
-    );
+//             <img src="${product.image_url || 'https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png'}" class="card-img-top" alt="cat-png" height="150" width="200">
+//             <div class="card-body">
+//               <h5 class="card-title">${product.Name}</h5>
+//               <p class="card-text">${product.description || 'No description available'}</p>
+//               <p>$${product.selling_price || '0.00'}</p>
+//               <a href="#" class="btn btn-primary">Add to cart</a>
+//             </div>
+//             `;
+//         }
+//     );
 
 
-    section.appendChild(productItem);
-}
+//     section.appendChild(productItem);
+// }
 
 
 
@@ -120,10 +123,12 @@ function displayData() {
     container.innerHTML = "";
 
     // Create and append elements for each item in the data array
-    productsData.forEach(function(item) {
+    productsData.forEach(function(item, index) {
+        
         var listItem = document.createElement("div");
         listItem.classList.add("card","m-2","p-2");
-        // listItem.textContent = item.Name;
+        listItem.setAttribute("id",index);
+
         listItem.innerHTML = `
         <img src="${item.image_url || 'https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png'}" class="card-img-top" alt="cat-png" height="150" width="200">
         <div class="card-item-body">
@@ -161,7 +166,7 @@ function increaseQuantity() {
 
 }
 
-$(document).ready(function(){
+$(document).ready(function(e){
     
     $('.quantity-right-plus').click(function(e){ 
         quantity++
@@ -172,4 +177,53 @@ $(document).ready(function(){
 
     });
   
+  });
+
+   // Add a click event listener to a common parent element
+   document.body.addEventListener('click', function(event) {
+    // Check if the clicked element is a button with the class 'increment-btn'
+    if (event.target.classList.contains('increment-btn')) {
+      // Find the parent element with the class 'list-item'
+      var listItem = event.target.closest('.list-item');
+      
+      // Check if the parent element exists
+      if (listItem) {
+        // Find the span element within the parent element
+        var spanElement = listItem.querySelector('span');
+        
+        // Check if the span element exists
+        if (spanElement) {
+          // Get the current count from the span text
+          var currentCount = parseInt(spanElement.textContent.match(/\d+/)[0]);
+          
+          // Increment the count and update the span text
+          spanElement.textContent = spanElement.textContent.replace(/\d+/, currentCount + 1);
+        }
+      }
+    }
+  });
+
+  // Add a click event listener to a common parent element
+  document.body.addEventListener('click', function(event) {
+    // Check if the clicked element is a button with the class 'quantity-btn'
+    if (event.target.classList.contains('quantity-btn')) {
+      // Get the data-type attribute value (plus or minus)
+      var dataType = event.target.getAttribute('data-type');
+      
+      // Get the data-field attribute value (the input field to update)
+      var dataField = event.target.getAttribute('data-field');
+      
+      // Find the input field with the specified name
+      var inputField = document.getElementsByName(dataField)[0];
+      
+      // Get the current value of the input field
+      var currentValue = parseInt(inputField.value);
+      
+      // Update the input field value based on the data-type attribute
+      if (dataType === 'plus') {
+        inputField.value = Math.min(currentValue + 1, parseInt(inputField.max));
+      } else if (dataType === 'minus') {
+        inputField.value = Math.max(currentValue - 1, parseInt(inputField.min));
+      }
+    }
   });
