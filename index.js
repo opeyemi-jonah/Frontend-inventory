@@ -124,7 +124,7 @@ function displayData() {
 
     // Create and append elements for each item in the data array
     productsData.forEach(function(item, index) {
-        
+
         var listItem = document.createElement("div");
         listItem.classList.add("card","m-2","p-2");
         listItem.setAttribute("id",index);
@@ -138,16 +138,16 @@ function displayData() {
           <p>${item.quantity} available</p>
           <div class="d-flex flex-column align-items-start mb-3"> 
           <a href="#" class="btn btn-primary mb-4">Add to cart</a>
-            <div class="input-group" style="width:50%">
+            <div id="quantitybutton" class="input-group" style="width:50%">
                 <span class="input-group-btn">
-                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
-                        <span class="glyphicon glyphicon-minus"></span>
+                    <button id="${index}-minus" type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                       -
                     </button>
                 </span>
-                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="0" min="1" max="${item.quantity}">
+                <input type="text" id="${index}-quantity" name="quantity" class="form-control input-number" value="0" min="1" max="${item.quantity}">
                 <span class="input-group-btn">
-                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <button id="${index}-plus" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                     +
                     </button>
                 </span>
             </div>
@@ -162,68 +162,31 @@ function displayData() {
 // Call the displayData function when the page loads
 window.onload = displayData;
 
-function increaseQuantity() {
+var theParent = document.querySelector("#data-container");
+theParent.addEventListener("click", doSomething, false);
 
-}
+function doSomething(e) {
 
-$(document).ready(function(e){
-    
-    $('.quantity-right-plus').click(function(e){ 
-        quantity++
-        e.preventDefault();
+    if (e.target !== e.currentTarget) {
+        var clickedItem = e.target.id;
+        const myTruncatedString = clickedItem.substring(0, 1);
+        var inputId = myTruncatedString+"-quantity";
+
+        var dataType = e.target.getAttribute('data-type');
+        // Find the input field with the specified name
+        var inputField = document.getElementById(inputId);
         
-        $('#quantity').val(quantity)
-        console.log(quantity)
-
-    });
-  
-  });
-
-   // Add a click event listener to a common parent element
-   document.body.addEventListener('click', function(event) {
-    // Check if the clicked element is a button with the class 'increment-btn'
-    if (event.target.classList.contains('increment-btn')) {
-      // Find the parent element with the class 'list-item'
-      var listItem = event.target.closest('.list-item');
-      
-      // Check if the parent element exists
-      if (listItem) {
-        // Find the span element within the parent element
-        var spanElement = listItem.querySelector('span');
-        
-        // Check if the span element exists
-        if (spanElement) {
-          // Get the current count from the span text
-          var currentCount = parseInt(spanElement.textContent.match(/\d+/)[0]);
-          
-          // Increment the count and update the span text
-          spanElement.textContent = spanElement.textContent.replace(/\d+/, currentCount + 1);
-        }
-      }
-    }
-  });
-
-  // Add a click event listener to a common parent element
-  document.body.addEventListener('click', function(event) {
-    // Check if the clicked element is a button with the class 'quantity-btn'
-    if (event.target.classList.contains('quantity-btn')) {
-      // Get the data-type attribute value (plus or minus)
-      var dataType = event.target.getAttribute('data-type');
-      
-      // Get the data-field attribute value (the input field to update)
-      var dataField = event.target.getAttribute('data-field');
-      
-      // Find the input field with the specified name
-      var inputField = document.getElementsByName(dataField)[0];
-      
-      // Get the current value of the input field
-      var currentValue = parseInt(inputField.value);
-      
-      // Update the input field value based on the data-type attribute
+        // Get the current value of the input field
+        var currentValue = parseInt(inputField.value);
+        // Update the input field value based on the data-type attribute
       if (dataType === 'plus') {
         inputField.value = Math.min(currentValue + 1, parseInt(inputField.max));
       } else if (dataType === 'minus') {
         inputField.value = Math.max(currentValue - 1, parseInt(inputField.min));
       }
+
+        console.log("CLICKED!", currentValue)
     }
-  });
+
+    e.stopPropagation();
+}
