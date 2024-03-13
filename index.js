@@ -178,7 +178,7 @@ function displayData() {
           <p>${item.selling_price || '0.00'}</p>
           <p>${item.quantity} available</p>
           <div class="d-flex flex-column align-items-start mb-3"> 
-          <a href="#" id="${index}" class="addToCartBtn btn btn-primary mb-4" name="AddToCart">Add to cart</a>
+          <a href="#offcanvasExample" id="${index}" class="addToCartBtn btn btn-primary mb-4" data-bs-toggle="offcanvas" name="AddToCart" aria-controls="offcanvasExample">Add to cart</a>
             <div id="quantitybutton" class="input-group" style="width:50%">
                 <span class="input-group-btn">
                     <button id="${index}-minus" type="button" class="quantity-left-minus btn btn-danger btn-number"  math-operator="minus" data-field="">
@@ -261,8 +261,9 @@ function addToCart(index) {
             displayCart();
             displayData();
             
-        } else {
-            alert("Not enough quantity available.");
+        }
+        else {
+            alert("Quantity not available");
         }
     }
 }
