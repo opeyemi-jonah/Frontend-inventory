@@ -1,5 +1,3 @@
-// let materialData = [];
-
 let  materialData = [
 
     {
@@ -79,87 +77,9 @@ var cartItemNumber = 0;
 // Initialize cart as an empty array
 var shoppingCart = [];
 
-function loadProducts() {
-    materialData = [
-
-        {
-            Name:"wood 30cm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 45
-        },
-        {
-            Name:"wood 330cm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 55
-        },
-        {
-            Name:"wood 350cm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 25
-        },
-        {
-            Name:"laser 30m",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 15
-        },
-        {
-            Name:"laser 730m",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 70
-        },
-        {
-            Name:"metal 50mm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 30
-        },
-        {
-            Name:"metal 30mm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 110
-        },
-        {
-            Name:"laser 130m",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 90
-        },
-        {
-            Name:"digital blazer 300cm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 50
-        },
-        {
-            Name:"metal 750mm",
-            description: "lorem ipsem psee ddowe asfdef fsaf",
-            image_url: "https://www.freepnglogos.com/uploads/cat-png/online-products-care-tips-food-best-1.png",
-            selling_price: "$30.00",
-            quantity: 20
-        }
-    ]
-
-}
-
 // Function to display data
 function displayData() {
     var container = document.getElementById("material-container");
-   // loadProducts()
     // Clear existing content
     container.innerHTML = "";
 
